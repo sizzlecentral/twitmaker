@@ -11,9 +11,15 @@ document.addEventListener("DOMContentLoaded", function() {
         url: $(this).attr('action'),
         method: $(this).attr('method'),
         data: $(this).serialize(),
-        dataType: ''
+        dataType: 'json'
       }).done(function(responseData) {
-        $('.tweets').prepend(responseData);
+        var tweets = document.querySelector('.tweets');
+        var tweet = document.createElement('li');
+        var tweetP = document.createElement('p');
+        tweet.className = 'tweet';
+        tweetP.innerHTML = responseData.message;
+        tweet.appendChild(tweetP);
+        tweets.prepend(tweet);
       }).fail(function() {
         console.log("Action failed.");
       }).always(function() {
